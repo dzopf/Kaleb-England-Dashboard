@@ -1,716 +1,322 @@
-:root {
-  --ink: #211b36;
-  --muted: #716b83;
-  --canvas: #f6f4fb;
-  --panel: #ffffff;
-  --line: #e2ddef;
-  --accent: #593cc9;
-  --accent-soft: #eeeaff;
-  --urgent: #bc3548;
-  --urgent-soft: #fce9ed;
-  --watch: #8b6412;
-  --watch-soft: #fff3d8;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  background: var(--canvas);
-  color: var(--ink);
-  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-button,
-input,
-select {
-  font: inherit;
-}
-
-button,
-a {
-  -webkit-tap-highlight-color: transparent;
-}
-
-button {
-  cursor: pointer;
-}
-
-.dashboard-shell {
-  width: min(1440px, calc(100% - 40px));
-  margin: 0 auto;
-  padding: 58px 0 80px;
-}
-
-.masthead,
-.section-heading,
-.lead-heading,
-.card-footer,
-.summary-row,
-.controls,
-.segmented {
-  display: flex;
-}
-
-.masthead {
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 40px;
-  padding: 26px 30px;
-  border: 1px solid #413473;
-  border-radius: 16px;
-  background: linear-gradient(105deg, #100b20 0%, #1a1230 38%, #423080 70%, #7a5de4 100%);
-  box-shadow: 0 12px 30px rgb(44 30 90 / .13);
-}
-
-.brand-lockup {
-  display: flex;
-  align-items: center;
-  gap: 18px;
-}
-
-.brand-mark {
-  width: 130px;
-  height: 88px;
-  flex: 0 0 auto;
-  background: transparent;
-}
-
-.brand-mark img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-}
-
-.eyebrow {
-  margin: 0 0 8px;
-  color: var(--accent);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-}
-
-.masthead .eyebrow { color: #c9c0ff; }
-
-h1,
-h2,
-h3,
-p {
-  margin-top: 0;
-}
-
-h1 {
-  max-width: 760px;
-  margin-bottom: 12px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(40px, 5vw, 68px);
-  font-weight: 500;
-  letter-spacing: -.055em;
-  line-height: .98;
-}
-
-.masthead h1 {
-  margin-bottom: 0;
-  margin-left: -3px;
-  color: #ffffff;
-  letter-spacing: -.02em;
-}
-
-h2 {
-  margin-bottom: 0;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 32px;
-  font-weight: 500;
-  letter-spacing: -.035em;
-}
-
-.intro {
-  max-width: 620px;
-  margin-bottom: 0;
-  color: var(--muted);
-  font-size: 17px;
-  line-height: 1.55;
-}
-
-.refresh-block {
-  min-width: 242px;
-  text-align: right;
-}
-
-.refresh-block p {
-  margin: 9px 0 0;
-  color: var(--muted);
-  font-size: 12px;
-  line-height: 1.45;
-}
-
-.masthead .refresh-block p { color: #c6bedc; }
-
-.refresh-button {
-  border: 0;
-  border-radius: 8px;
-  background: #7254df;
-  color: white;
-  padding: 12px 16px;
-  font-weight: 760;
-  transition: transform .16s ease, background .16s ease;
-}
-
-.refresh-button:hover:not(:disabled) {
-  background: #8066e4;
-  transform: translateY(-1px);
-}
-
-.refresh-button:disabled {
-  cursor: wait;
-  opacity: .7;
-}
-
-.notice,
-.empty-state {
-  margin-top: 32px;
-  border-radius: 10px;
-}
-
-.notice {
-  padding: 14px 16px;
-  font-size: 14px;
-}
-
-.error-notice {
-  border: 1px solid #e7c4bc;
-  background: #fff8f6;
-  color: #8b3529;
-}
-
-.empty-state {
-  max-width: 720px;
-  margin: 76px auto;
-  padding: 42px;
-  border: 1px solid var(--line);
-  background: var(--panel);
-  text-align: center;
-}
-
-.empty-state p:last-child {
-  max-width: 520px;
-  margin: 16px auto 0;
-  color: var(--muted);
-  line-height: 1.6;
-}
-
-.summary-row {
-  gap: 1px;
-  margin-top: 28px;
-  border: 1px solid var(--line);
-  background: var(--line);
-}
-
-.summary-row > div,
-.summary-row > button {
-  flex: 1;
-  min-width: 0;
-  border: 0;
-  padding: 18px 20px;
-  background: var(--panel);
-  text-align: left;
-}
-
-.summary-row > button { transition: background .16s ease; }
-.summary-row > button:hover,
-.summary-row > button.summary-selected { background: var(--accent-soft); }
-
-.summary-row span,
-.summary-row small {
-  display: block;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.summary-row strong {
-  display: block;
-  margin: 5px 0 4px;
-  color: var(--ink);
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 30px;
-  font-weight: 500;
-}
-
-.summary-row .latest-date {
-  font-size: 22px;
-}
-
-.section-heading {
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 24px;
-  margin-top: 56px;
-  padding-bottom: 17px;
-  border-bottom: 1px solid var(--line);
-}
-
-.active-section,
-.all-cards-section {
-  margin-top: 22px;
-}
-
-.active-section {
-  margin-top: 28px;
-  padding: 22px;
-  border: 1px solid #bdb0f0;
-  background: #f0edff;
-}
-
-.all-cards-section {
-  padding-top: 25px;
-  border-top: 2px solid var(--line);
-}
-
-.archive-section { margin-top: 38px; }
-
-.subsection-heading {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.subsection-heading h3 {
-  margin: 0;
-  font-size: 19px;
-  letter-spacing: -.02em;
-}
-
-.subsection-heading p {
-  margin: 0;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.active-grid { margin-top: 16px; }
-
-.activity-heading {
-  margin-top: 68px;
-}
-
-.action-controls-only {
-  justify-content: flex-end;
-  margin-top: 34px;
-}
-
-.activity-heading > div > p:last-child {
-  margin: 6px 0 0;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.controls {
-  align-items: center;
-  gap: 12px;
-}
-
-.search-field input,
-.filter-field select {
-  min-height: 40px;
-  border: 1px solid var(--line);
-  border-radius: 7px;
-  background: var(--panel);
-  color: var(--ink);
-}
-
-.search-field input {
-  width: 340px;
-  padding: 0 12px;
-}
-
-.filter-field {
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.filter-field select {
-  margin-left: 7px;
-  padding: 0 28px 0 10px;
-}
-
-.segmented {
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  overflow: hidden;
-}
-
-.segmented button {
-  border: 0;
-  border-right: 1px solid var(--line);
-  background: var(--panel);
-  color: var(--muted);
-  padding: 10px 12px;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.segmented button:last-child { border-right: 0; }
-.segmented button.selected { background: var(--accent-soft); color: var(--accent); }
-
-.lead-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 16px;
-  margin-top: 20px;
-}
-
-.activity-list {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-  margin-top: 18px;
-}
-
-.lead-card {
-  display: flex;
-  min-height: 260px;
-  flex-direction: column;
-  border: 1px solid var(--line);
-  border-top: 4px solid #b6aecb;
-  background: var(--panel);
-  padding: 18px;
-}
-
-.lead-heading {
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.lead-heading h3 {
-  margin-bottom: 4px;
-  font-size: 18px;
-  letter-spacing: -.02em;
-}
-
-.lead-title,
-.contact-line,
-.location {
-  margin-bottom: 0;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.4;
-}
-
-.lead-title { margin-bottom: 5px; }
-.contact-line { margin-bottom: 3px; }
-.contact-label { color: var(--ink); font-weight: 700; }
-.contact-link { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
-.contact-link:hover { color: var(--accent); }
-
-.location {
-  flex: 0 0 auto;
-  max-width: none;
-  white-space: nowrap;
-  text-align: right;
-}
-
-.progress-indicators {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 14px 0;
-  padding: 10px 0;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-}
-
-.progress-indicator {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.video-sent-text {
-  display: inline-flex;
-  align-items: center;
-  color: var(--muted);
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.indicator-dot {
-  display: grid;
-  width: 18px;
-  height: 18px;
-  place-items: center;
-  border: 2px solid #c6c0d6;
-  border-radius: 50%;
-  color: #ffffff;
-  font-size: 12px;
-  font-weight: 800;
-  line-height: 1;
-}
-
-.progress-indicator.complete { color: #1e7b52; }
-.progress-indicator.complete .indicator-dot { border-color: #22875b; background: #22875b; }
-
-.card-footer {
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 12px;
-  margin-top: auto;
-}
-
-.card-actions {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.card-toggle-actions {
-  display: grid;
-  width: 100%;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 6px;
-}
-
-.card-toggle {
-  display: flex;
-  min-height: 36px;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  background: #faf9fd;
-  padding: 6px 5px;
-  color: var(--ink);
-  font-size: 13px;
-  font-weight: 800;
-  line-height: 1.15;
-  text-align: center;
-  text-decoration: none;
-}
-
-.card-toggle:hover { border-color: #b8afe0; background: var(--accent-soft); text-decoration: none; }
-
-.conversation-button {
-  border: 0;
-  background: transparent;
-  color: var(--accent);
-  padding: 0;
-  font-size: 13px;
-  font-weight: 800;
-}
-
-.card-toggle.conversation-button { color: var(--accent); }
-
-.pin-button {
-  border: 0;
-  background: transparent;
-  color: #5f5872;
-  padding: 0;
-  font-size: 13px;
-  font-weight: 800;
-}
-
-.card-toggle.pin-button { color: var(--accent); }
-
-.pin-button:hover,
-.pin-button.pinned { color: var(--accent); text-decoration: underline; }
-
-.conversation-button:hover { text-decoration: underline; }
-
-.archive-button {
-  border: 0;
-  background: transparent;
-  color: var(--urgent);
-  margin-top: 10px;
-  padding: 0;
-  font-size: 13px;
-  font-weight: 800;
-}
-
-.card-toggle.archive-button { margin-top: 0; color: var(--accent); }
-
-.card-toggle.conversation-button,
-.card-toggle.pin-button,
-.card-toggle.archive-button {
-  border: 1px solid var(--line);
-  background: #faf9fd;
-  padding: 6px 5px;
-  font-size: 13px;
-}
-
-.card-toggle.conversation-button:hover,
-.card-toggle.pin-button:hover,
-.card-toggle.archive-button:hover { color: var(--accent); text-decoration: none; }
-
-.card-toggle.pin-button.pinned { text-decoration: none; }
-
-.archive-button:hover { color: #8e2e22; text-decoration: underline; }
-.restore-button { color: var(--accent); }
-.restore-button:hover { color: #0e5647; }
-
-.card-toggle.restore-button { color: var(--accent); }
-
-.card-toggle.linkedin-link { color: var(--accent); }
-.unavailable-toggle { color: var(--muted); }
-
-.manual-note,
-.data-note {
-  margin: 0;
-  font-size: 12px;
-  line-height: 1.4;
-}
-
-.manual-note { color: var(--urgent); font-weight: 700; }
-.data-note { margin-top: 4px; color: var(--muted); }
-
-.linkedin-link {
-  flex-shrink: 0;
-  color: var(--accent);
-  font-size: 13px;
-  font-weight: 800;
-  text-decoration: none;
-}
-
-.linkedin-link:hover { text-decoration: underline; }
-.queue-empty { margin: 18px 0 0; color: var(--muted); }
-.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
-
-.conversation-overlay {
-  position: fixed;
-  z-index: 10;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  padding: 22px;
-  background: rgb(20 37 32 / .45);
-}
-
-.conversation-panel {
-  width: min(760px, 100%);
-  max-height: min(780px, 92vh);
-  overflow: auto;
-  border-radius: 12px;
-  background: var(--panel);
-  box-shadow: 0 18px 54px rgb(16 32 28 / .22);
-}
-
-.panel-header,
-.panel-footer {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 26px 28px;
-}
-
-.panel-header { border-bottom: 1px solid var(--line); }
-.panel-header h2 { margin: 0 0 6px; }
-.panel-header p:last-child,
-.panel-footer span { margin: 0; color: var(--muted); font-size: 13px; }
-
-.close-button {
-  border: 1px solid var(--line);
-  border-radius: 7px;
-  background: white;
-  color: var(--ink);
-  padding: 8px 10px;
-  font-size: 13px;
-  font-weight: 750;
-}
-
-.conversation-full {
-  padding: 28px;
-  color: #354842;
-  font-size: 15px;
-  line-height: 1.68;
-}
-
-.message-line {
-  min-height: 1.68em;
-  margin: 0;
-  white-space: pre-wrap;
-}
-
-.message-line strong {
-  color: var(--ink);
-  font-weight: 800;
-}
-
-.panel-footer {
-  align-items: center;
-  border-top: 1px solid var(--line);
-}
-
-@media (max-width: 900px) {
-  .masthead, .section-heading { align-items: flex-start; flex-direction: column; }
-  .refresh-block { text-align: left; }
-  .summary-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .lead-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .controls { width: 100%; flex-wrap: wrap; }
-}
-
-@media (max-width: 620px) {
-  .dashboard-shell {
-    width: calc(100% - 28px);
-    max-width: none;
-    padding-top: 24px;
+"use client";
+
+import { useMemo, useState } from "react";
+import {
+  emailHref,
+  formatActivityTime,
+  formatDateOnly,
+  formatPhone,
+  latestVideoSent,
+  normalizeRows,
+  parseCsv,
+  phoneHref,
+  simplifyLocation,
+  type LeadRecord,
+} from "../lib/campaign";
+import { sourceConfig } from "../lib/source-config";
+
+const CACHE_KEY = "lwb-dashboard-last-good-view";
+const SEEN_KEY = "lwb-dashboard-seen-action-items";
+const ARCHIVE_KEY = "lwb-dashboard-archived-prospects";
+const PINNED_KEY = "lwb-dashboard-pinned-prospects";
+
+type CachedView = { records: LeadRecord[]; refreshedAt: string };
+
+function repairCachedView(view: CachedView): CachedView {
+  return {
+    ...view,
+    records: view.records.map((record) => {
+      const videoBlocked = /^0?1\/0?1\/(?:0?1|2001)$/i.test(record.videoSent);
+      const hasWatched = /\[video wat(?:ched|rched)\]/i.test(record.notes);
+      return {
+        ...record,
+        hasVideoSent: !videoBlocked && Boolean(record.videoSent),
+        hasWatched,
+        watchedAt: record.watchedAt ?? (hasWatched ? record.lastSearched : ""),
+      };
+    }),
+  };
+}
+
+function archiveKey(record: LeadRecord) {
+  return record.profileUrl || `${record.firstName}-${record.lastName}`.toLowerCase();
+}
+
+function readLocal<T>(key: string, fallback: T): T {
+  if (typeof window === "undefined") return fallback;
+  try {
+    const stored = window.localStorage.getItem(key);
+    return stored ? (JSON.parse(stored) as T) : fallback;
+  } catch {
+    return fallback;
   }
+}
 
-  .masthead {
-    width: 100%;
-    gap: 22px;
-    padding: 22px;
-  }
+function saveLocal(key: string, value: unknown) {
+  window.localStorage.setItem(key, JSON.stringify(value));
+}
 
-  .brand-lockup {
-    width: 100%;
-    gap: 12px;
-  }
+function WatchedIndicator({ date, complete }: { date: string; complete: boolean }) {
+  return (
+    <div className={`progress-indicator ${complete ? "complete" : ""}`}>
+      <span className="indicator-dot" aria-hidden="true">{complete ? "✓" : ""}</span>
+      <span>Video watched{date ? `: ${formatDateOnly(date)}` : complete ? ": date unavailable" : ""}</span>
+    </div>
+  );
+}
 
-  .brand-mark {
-    width: 96px;
-    height: 72px;
-  }
+function LeadCard({ record, archived, pinned, onViewConversation, onArchive, onPin }: { record: LeadRecord; archived?: boolean; pinned?: boolean; onViewConversation: (record: LeadRecord) => void; onArchive: (record: LeadRecord) => void; onPin: (record: LeadRecord) => void }) {
+  const emailLink = emailHref(record.email);
+  const phoneLink = phoneHref(record.phone);
 
-  h1 { font-size: clamp(40px, 12vw, 52px); }
+  return (
+    <article className="lead-card">
+      <div className="lead-heading">
+        <div>
+          <h3>{record.fullName}</h3>
+          <p className="lead-title">
+            {[record.title, record.company].filter(Boolean).join(" at ") || "Profile details unavailable"}
+          </p>
+          <p className="contact-line"><span className="contact-label">email:</span> {emailLink ? <a className="contact-link" href={emailLink}>{record.email}</a> : "Email unavailable"}</p>
+          <p className="contact-line"><span className="contact-label">tel:</span> {phoneLink ? <a className="contact-link" href={phoneLink}>{formatPhone(record.phone)}</a> : "Phone unavailable"}</p>
+        </div>
+        {record.location ? <span className="location">{simplifyLocation(record.location)}</span> : null}
+      </div>
+      <div className="progress-indicators" aria-label="Video progress">
+        <span className="video-sent-text">Video sent{record.videoSent ? `: ${formatDateOnly(record.videoSent)}` : ""}</span>
+        <WatchedIndicator date={record.watchedAt} complete={record.hasWatched} />
+      </div>
+      {record.kind === "reply-before-video" ? <p className="manual-note">Stop video manually in the Sheet if needed.</p> : null}
+      {record.sourceIncomplete ? <p className="data-note">Some source details are incomplete.</p> : null}
+      <div className="card-footer">
+        <div className="card-actions card-toggle-actions">
+          <button className={`card-toggle archive-button ${archived ? "restore-button" : ""}`} onClick={() => onArchive(record)}>{archived ? "Restore" : "Archive"}</button>
+          <button className={`card-toggle pin-button ${pinned ? "pinned" : ""}`} onClick={() => onPin(record)}>{pinned ? "Unpin" : "Pin"}</button>
+          <button className="card-toggle conversation-button" onClick={() => onViewConversation(record)}>Initial Outreach</button>
+          {record.profileUrl ? (
+            <a className="card-toggle linkedin-link" href={record.profileUrl} target="_blank" rel="noreferrer">
+              Open LinkedIn
+            </a>
+          ) : <span className="card-toggle unavailable-toggle">LinkedIn unavailable</span>}
+        </div>
+      </div>
+    </article>
+  );
+}
 
-  .refresh-block {
-    min-width: 0;
-    width: 100%;
-  }
+function ConversationText({ record }: { record: LeadRecord }) {
+  const allowedSpeakers = new Set([
+    ...record.senderName.toLowerCase().split(/\s+/),
+    record.senderName.toLowerCase(),
+    record.firstName.toLowerCase(),
+    record.fullName.toLowerCase(),
+  ]);
 
-  .section-heading { width: 100%; }
-  .summary-row, .lead-grid, .activity-list { grid-template-columns: minmax(0, 1fr); }
-  .search-field { display: block; width: 100%; }
-  .search-field input { width: 100%; }
-  .segmented { width: 100%; }
-  .segmented button { flex: 1; }
-  .filter-field select { max-width: 180px; }
-  .subsection-heading { align-items: flex-start; flex-direction: column; gap: 4px; }
+  return (
+    <div className="conversation-full">
+      {(record.notes || "No conversation was included in this spreadsheet row.").split(/\r?\n/).map((line, index) => {
+        const match = line.match(/^\s*([^:\n]{1,70}):(.*)$/);
+        const speaker = match?.[1]?.trim() ?? "";
+        const message = match?.[2] ?? line;
+        const isKnownSpeaker = allowedSpeakers.has(speaker.toLowerCase()) || /^[A-Z]\.$/.test(speaker);
 
-  .lead-card { min-width: 0; padding: 16px; }
-  .lead-heading > div { min-width: 0; }
-  .location {
-    max-width: 45%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-  .card-toggle-actions {
-    min-width: 0;
-    gap: 5px;
-  }
-  .card-toggle {
-    min-width: 0;
-    min-height: 46px;
-    padding: 6px 3px;
-    font-size: 12px;
-    line-height: 1.1;
-    overflow-wrap: anywhere;
-  }
+        return (
+          <p className="message-line" key={`${index}-${line.slice(0, 20)}`}>
+            {match && isKnownSpeaker ? <><strong>{speaker}:</strong>{message}</> : line}
+          </p>
+        );
+      })}
+    </div>
+  );
+}
+
+export default function Home() {
+  const [cached] = useState<CachedView>(() => repairCachedView(readLocal<CachedView>(CACHE_KEY, { records: [], refreshedAt: "" })));
+  const [records, setRecords] = useState<LeadRecord[]>(cached.records);
+  const [refreshedAt, setRefreshedAt] = useState(cached.refreshedAt);
+  const [newIds, setNewIds] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [query, setQuery] = useState("");
+  const [selectedRecord, setSelectedRecord] = useState<LeadRecord | null>(null);
+  const [archivedKeys, setArchivedKeys] = useState<string[]>(() => readLocal<string[]>(ARCHIVE_KEY, []));
+  const [pinnedKeys, setPinnedKeys] = useState<string[]>(() => readLocal<string[]>(PINNED_KEY, []));
+
+  const toggleArchive = (record: LeadRecord) => {
+    const key = archiveKey(record);
+    setArchivedKeys((current) => {
+      const next = current.includes(key) ? current.filter((item) => item !== key) : [...current, key];
+      saveLocal(ARCHIVE_KEY, next);
+      return next;
+    });
+  };
+
+  const togglePin = (record: LeadRecord) => {
+    const key = archiveKey(record);
+    setPinnedKeys((current) => {
+      const next = current.includes(key) ? current.filter((item) => item !== key) : [...current, key];
+      saveLocal(PINNED_KEY, next);
+      return next;
+    });
+  };
+
+  const refresh = async () => {
+    const { sheetId, sheetGid } = sourceConfig;
+    if (!sheetId || !sheetGid) {
+      setError("The dashboard Sheet connection is not configured yet.");
+      return;
+    }
+
+    setLoading(true);
+    setError("");
+    try {
+      const endpoint = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=csv&gid=${sheetGid}`;
+      const response = await fetch(endpoint, { cache: "no-store" });
+      if (!response.ok) throw new Error("The Sheet could not be read right now.");
+      const nextRecords = normalizeRows(parseCsv(await response.text()));
+      if (!nextRecords.length) throw new Error("The Sheet returned no usable activity records.");
+
+      const knownIds = readLocal<string[]>(SEEN_KEY, []);
+      const actions = nextRecords.filter((record) => record.priority <= 3);
+      const firstLoad = knownIds.length === 0;
+      setNewIds(firstLoad ? [] : actions.filter((record) => !knownIds.includes(record.id)).map((record) => record.id));
+      saveLocal(SEEN_KEY, Array.from(new Set([...knownIds, ...actions.map((record) => record.id)])));
+
+      const now = new Date().toISOString();
+      setRecords(nextRecords);
+      setRefreshedAt(now);
+      saveLocal(CACHE_KEY, { records: nextRecords, refreshedAt: now });
+    } catch (caught) {
+      setError(caught instanceof Error ? caught.message : "The Sheet could not be read right now.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const searchedRecords = useMemo(() => {
+    const normalizedQuery = query.trim().toLowerCase();
+    if (!normalizedQuery) return records;
+    return records.filter((record) =>
+      [record.fullName, record.title, record.company, record.location, record.notes]
+        .join(" ")
+        .toLowerCase()
+        .includes(normalizedQuery),
+    );
+  }, [query, records]);
+
+  const activeRecords = searchedRecords.filter((record) => !archivedKeys.includes(archiveKey(record)));
+  const archivedRecords = searchedRecords.filter((record) => archivedKeys.includes(archiveKey(record)));
+  const actionRecords = activeRecords.filter((record) => record.priority <= 3);
+  const actions = actionRecords
+    .sort((left, right) => {
+      const leftWatchTime = left.hasWatched ? Date.parse(left.watchedAt) || 0 : 0;
+      const rightWatchTime = right.hasWatched ? Date.parse(right.watchedAt) || 0 : 0;
+      const leftSentTime = Date.parse(left.videoSent) || 0;
+      const rightSentTime = Date.parse(right.videoSent) || 0;
+      return rightWatchTime - leftWatchTime || rightSentTime - leftSentTime || left.priority - right.priority || Date.parse(right.timestamp) - Date.parse(left.timestamp);
+    });
+  const pinned = activeRecords.filter((record) => pinnedKeys.includes(archiveKey(record)));
+  const unpinnedActions = actions.filter((record) => !pinnedKeys.includes(archiveKey(record)));
+  const archived = [...archivedRecords].sort((left, right) => {
+    const leftWatchTime = left.hasWatched ? Date.parse(left.watchedAt) || 0 : 0;
+    const rightWatchTime = right.hasWatched ? Date.parse(right.watchedAt) || 0 : 0;
+    const leftSentTime = Date.parse(left.videoSent) || 0;
+    const rightSentTime = Date.parse(right.videoSent) || 0;
+    return rightWatchTime - leftWatchTime || rightSentTime - leftSentTime || Date.parse(right.timestamp) - Date.parse(left.timestamp);
+  });
+
+  const latestVideoDate = latestVideoSent(records);
+  const isFirstLoad = !refreshedAt && !records.length;
+
+  return (
+    <main className="dashboard-shell">
+      <header className="masthead">
+        <div className="brand-lockup">
+          <div className="brand-mark">
+            <img src="./link-with-buyers-rabbit.png" alt="Link With Buyers rabbit logo" />
+          </div>
+          <div>
+            <p className="eyebrow">Link With Buyers</p>
+            <h1>Campaign Activity</h1>
+          </div>
+        </div>
+        <div className="refresh-block">
+          <button className="refresh-button" onClick={refresh} disabled={loading}>
+            {loading ? "Refreshing…" : records.length ? "Refresh Dashboard" : "Load Dashboard"}
+          </button>
+          <p>{latestVideoDate ? `Latest Refresh: ${formatDateOnly(latestVideoDate)}` : "Latest Refresh will appear after loading the Sheet."}</p>
+        </div>
+      </header>
+
+      {error ? <div className="notice error-notice">{error} {records.length ? "Your last saved view is still shown below." : ""}</div> : null}
+
+      {isFirstLoad ? (
+        <section className="empty-state">
+          <p className="eyebrow">Ready when you are</p>
+          <h2>Load the current campaign activity.</h2>
+          <p>The first refresh shows the full backlog of people who need attention. Later refreshes identify newly watched videos and new replies.</p>
+        </section>
+      ) : (
+        <>
+          <section className="section-heading action-heading action-controls-only">
+            <div className="controls">
+              <label className="search-field"><span className="sr-only">Search activity</span><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search people or companies" /></label>
+            </div>
+          </section>
+          {pinned.length ? (
+            <section className="active-section" aria-live="polite">
+              <div className="subsection-heading">
+                <h3>Pinned Cards</h3>
+                <p>Prospects you have pinned for closer attention.</p>
+              </div>
+              <div className="lead-grid active-grid">
+                {pinned.map((record) => <LeadCard key={record.id} record={record} pinned archived={archivedKeys.includes(archiveKey(record))} onViewConversation={setSelectedRecord} onArchive={toggleArchive} onPin={togglePin} />)}
+              </div>
+            </section>
+          ) : null}
+          <section className="all-cards-section" aria-live="polite">
+            <div className="subsection-heading">
+              <h3>Prospects</h3>
+              <p>Most recent video watch first, then most recent video sent.</p>
+            </div>
+            <div className="lead-grid">
+              {unpinnedActions.length ? unpinnedActions.map((record) => <LeadCard key={record.id} record={record} pinned={pinnedKeys.includes(archiveKey(record))} archived={archivedKeys.includes(archiveKey(record))} onViewConversation={setSelectedRecord} onArchive={toggleArchive} onPin={togglePin} />) : <p className="queue-empty">No prospects match this view.</p>}
+            </div>
+          </section>
+
+          <section className="all-cards-section archive-section" aria-live="polite">
+            <div className="subsection-heading">
+              <h3>Archive</h3>
+              <p>Most recent video watch first.</p>
+            </div>
+            <div className="lead-grid">
+              {archived.length ? archived.map((record) => <LeadCard key={record.id} record={record} pinned={pinnedKeys.includes(archiveKey(record))} archived onViewConversation={setSelectedRecord} onArchive={toggleArchive} onPin={togglePin} />) : <p className="queue-empty">No archived prospects.</p>}
+            </div>
+          </section>
+
+        </>
+      )}
+      {selectedRecord ? (
+        <div className="conversation-overlay" role="presentation" onMouseDown={() => setSelectedRecord(null)}>
+          <section className="conversation-panel" role="dialog" aria-modal="true" aria-labelledby="conversation-title" onMouseDown={(event) => event.stopPropagation()}>
+            <div className="panel-header">
+              <div>
+                <p className="eyebrow">Initial Conversation</p>
+                <h2 id="conversation-title">{selectedRecord.fullName}</h2>
+                <p>{[selectedRecord.title, selectedRecord.company, selectedRecord.location].filter(Boolean).join(" · ") || "Profile details unavailable"}</p>
+              </div>
+              <button className="close-button" onClick={() => setSelectedRecord(null)} aria-label="Close conversation">Close</button>
+            </div>
+            <ConversationText record={selectedRecord} />
+            <div className="panel-footer">
+              <span>{formatActivityTime(selectedRecord.timestamp)}</span>
+              <div className="card-actions">
+                {selectedRecord.profileUrl ? <a className="linkedin-link" href={selectedRecord.profileUrl} target="_blank" rel="noreferrer">Open LinkedIn</a> : null}
+              </div>
+            </div>
+          </section>
+        </div>
+      ) : null}
+    </main>
+  );
 }
