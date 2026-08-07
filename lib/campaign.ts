@@ -208,6 +208,17 @@ export function formatPhone(value: string) {
   return `(${localNumber.slice(0, 3)}) ${localNumber.slice(3, 6)}-${localNumber.slice(6)}`;
 }
 
+export function phoneHref(value: string) {
+  const digits = value.replace(/\D/g, "");
+  const localNumber = digits.length === 11 && digits.startsWith("1") ? digits.slice(1) : digits;
+  return localNumber.length === 10 ? `tel:+1${localNumber}` : "";
+}
+
+export function emailHref(value: string) {
+  const email = value.trim();
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) ? `mailto:${email}` : "";
+}
+
 export function latestActivity(records: LeadRecord[]) {
   return records.reduce<string>((latest, record) =>
     timestampValue(record.timestamp) > timestampValue(latest) ? record.timestamp : latest,
