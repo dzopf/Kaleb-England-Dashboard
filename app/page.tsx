@@ -2,23 +2,25 @@
 
 import { useMemo, useState } from "react";
 import {
-  emailHref,
   formatActivityTime,
   formatDateOnly,
   formatPhone,
   latestVideoSent,
   normalizeRows,
   parseCsv,
-  phoneHref,
   simplifyLocation,
   type LeadRecord,
 } from "../lib/campaign";
 import { sourceConfig } from "../lib/source-config";
 
-const CACHE_KEY = "lwb-dashboard-last-good-view";
-const SEEN_KEY = "lwb-dashboard-seen-action-items";
-const ARCHIVE_KEY = "lwb-dashboard-archived-prospects";
-const PINNED_KEY = "lwb-dashboard-pinned-prospects";
+// Every client dashboard is served from the same github.io origin, so localStorage is
+// shared across all of them. Namespacing by Sheet id keeps each client's cached view,
+// pins and archive decisions separate instead of bleeding between dashboards.
+const STORE_NS = `:${sourceConfig.sheetId}`;
+const CACHE_KEY = `lwb-dashboard-last-good-view${STORE_NS}`;
+const SEEN_KEY = `lwb-dashboard-seen-action-items${STORE_NS}`;
+const ARCHIVE_KEY = `lwb-dashboard-archived-prospects${STORE_NS}`;
+const PINNED_KEY = `lwb-dashboard-pinned-prospects${STORE_NS}`;
 
 type CachedView = { records: LeadRecord[]; refreshedAt: string };
 
@@ -66,9 +68,6 @@ function WatchedIndicator({ date, complete }: { date: string; complete: boolean 
 }
 
 function LeadCard({ record, archived, pinned, onViewConversation, onArchive, onPin }: { record: LeadRecord; archived?: boolean; pinned?: boolean; onViewConversation: (record: LeadRecord) => void; onArchive: (record: LeadRecord) => void; onPin: (record: LeadRecord) => void }) {
-  const emailLink = emailHref(record.email);
-  const phoneLink = phoneHref(record.phone);
-
   return (
     <article className="lead-card">
       <div className="lead-heading">
@@ -77,8 +76,8 @@ function LeadCard({ record, archived, pinned, onViewConversation, onArchive, onP
           <p className="lead-title">
             {[record.title, record.company].filter(Boolean).join(" at ") || "Profile details unavailable"}
           </p>
-          <p className="contact-line"><span className="contact-label">email:</span> {emailLink ? <a className="contact-link" href={emailLink}>{record.email}</a> : "Email unavailable"}</p>
-          <p className="contact-line"><span className="contact-label">tel:</span> {phoneLink ? <a className="contact-link" href={phoneLink}>{formatPhone(record.phone)}</a> : "Phone unavailable"}</p>
+          <p className="contact-line"><span className="contact-label">email:</span> {record.email || "Email unavailable"}</p>
+          <p className="contact-line"><span className="contact-label">tel:</span> {formatPhone(record.phone) || "Phone unavailable"}</p>
         </div>
         {record.location ? <span className="location">{simplifyLocation(record.location)}</span> : null}
       </div>
@@ -320,4 +319,3 @@ export default function Home() {
     </main>
   );
 }
-
