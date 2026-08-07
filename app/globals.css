@@ -404,6 +404,8 @@ h2 {
 .lead-title { margin-bottom: 5px; }
 .contact-line { margin-bottom: 3px; }
 .contact-label { color: var(--ink); font-weight: 700; }
+.contact-link { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.contact-link:hover { color: var(--accent); }
 
 .location {
   flex: 0 0 auto;
